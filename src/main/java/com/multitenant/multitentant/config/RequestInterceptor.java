@@ -1,5 +1,6 @@
 package com.multitenant.multitentant.config;
 
+import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
@@ -14,10 +15,12 @@ public class RequestInterceptor implements HandlerInterceptor {
         System.out.println("In preHandle we are Intercepting the Request");
         System.out.println("____________________________________________");
         String requestURI = request.getRequestURI();
-        String tenantID = request.getHeader("X-TenantID");
+        String tenantID = request.getHeader("X-TenantID"); //X-TenantID
         System.out.println("RequestURI::" + requestURI + " || Search for X-TenantID  :: " + tenantID);
         System.out.println("____________________________________________");
-        if (tenantID == null) {
+        //Checks if the method is of the type "OPTIONS"
+        String method = request.getMethod();
+        if (tenantID == null && !method.equalsIgnoreCase("OPTIONS")) {
             response.getWriter().write("X-TenantID not present in the Request Header");
             response.setStatus(400);
             return false;
