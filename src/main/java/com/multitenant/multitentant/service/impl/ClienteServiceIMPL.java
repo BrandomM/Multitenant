@@ -1,4 +1,3 @@
-
 package com.multitenant.multitentant.service.impl;
 
 import com.multitenant.multitentant.dao.ClienteDao;
@@ -6,15 +5,16 @@ import com.multitenant.multitentant.model.Cliente;
 import com.multitenant.multitentant.service.ClienteService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-
-public class ClienteServiceIMPL implements ClienteService{
+@Service
+public class ClienteServiceImpl implements ClienteService{
 
     @Autowired
     ClienteDao clienteDao;
     
     @Override
-    public List<Cliente> listarClientes() {
+    public List<Cliente> listar() {
        return clienteDao.findAll();
     }
 
