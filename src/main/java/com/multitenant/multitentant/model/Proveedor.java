@@ -25,4 +25,5 @@ public class Proveedor {
     @Column(name = "correo")
     private String correo;
     
+    //comentario
 }
