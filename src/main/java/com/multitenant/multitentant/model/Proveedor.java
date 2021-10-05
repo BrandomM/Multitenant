@@ -1,11 +1,14 @@
-
 package com.multitenant.multitentant.model;
 
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
 
@@ -13,7 +16,7 @@ import lombok.Data;
 @Entity
 @Table(name = "proveedores")
 public class Proveedor {
-    
+
     @Id
     @Column(name = "idProveedores")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +24,13 @@ public class Proveedor {
 
     @Column(name = "nombre")
     private String nombre;
-    
+
     @Column(name = "correo")
     private String correo;
-    
+
+    @OneToMany(mappedBy = "proveedor",
+            cascade = CascadeType.ALL)
+    Set<Producto> productos;
+
     //comentario
 }
