@@ -18,10 +18,25 @@ public class ProductoServiceImpl implements ProductoService {
     public List<Producto> listar() {
         return productoDao.findAll();
     }
+    @Override
+    public Producto buscarPorId(Long id) {
+        return productoDao.findById(id).orElse(null);
+    }
 
     @Override
     public void registrar(Producto producto) {
         productoDao.save(producto);
     }
+    
+    @Override
+    public void modificar (Producto producto){
+        productoDao.save(producto);
+    }
+    
+    @Override
+    public void eliminar (Producto producto) {
+        productoDao.delete(producto);
+    }
+
     
 }

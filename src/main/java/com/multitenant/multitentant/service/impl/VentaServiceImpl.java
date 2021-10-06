@@ -17,10 +17,26 @@ public class VentaServiceImpl implements VentaService {
     public List<Venta> listar() {
         return ventaDao.findAll();
     }
-
+    
+    @Override
+    public Venta buscarPorId(Long id) {
+        return ventaDao.findById(id).orElse(null);
+    }
+    
     @Override
     public void registrar(Venta venta) {
         ventaDao.save(venta);
+    }
+
+
+    @Override
+    public void modificar(Venta venta) {
+        ventaDao.save(venta);
+    }
+
+    @Override
+    public void eliminar(Venta venta) {
+        ventaDao.delete(venta);
     }
 
 }
