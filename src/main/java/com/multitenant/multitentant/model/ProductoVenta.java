@@ -3,6 +3,7 @@ package com.multitenant.multitentant.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +32,7 @@ public class ProductoVenta {
 
     @ManyToOne
     @JoinColumn(name = "productos_idProductos")
-    @JsonIgnoreProperties({"precio", "cantidad", "sucursal", "proveedor"})
+    @JsonIgnoreProperties({"precio", "cantidad", "sucursal", "proveedor", "productosVentas"})
     private Producto producto;
 
     public Long getId() {
