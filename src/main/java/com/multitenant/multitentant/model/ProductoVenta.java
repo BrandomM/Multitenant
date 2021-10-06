@@ -1,5 +1,7 @@
 package com.multitenant.multitentant.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,12 +26,12 @@ public class ProductoVenta {
 
     @ManyToOne
     @JoinColumn(name = "ventas_idVentas")
-    @JsonIgnoreProperties({"productosVentas"})
+    @JsonIgnoreProperties("productosVentas")
     private Venta venta;
 
     @ManyToOne
     @JoinColumn(name = "productos_idProductos")
-    //@JsonIgnoreProperties({"productos"})
+    @JsonIgnoreProperties({"precio", "cantidad", "sucursal", "proveedor"})
     private Producto producto;
 
     public Long getId() {
@@ -48,6 +50,7 @@ public class ProductoVenta {
         this.cantidad = cantidad;
     }
 
+    @JsonBackReference
     public Venta getVenta() {
         return venta;
     }

@@ -1,11 +1,14 @@
-
 package com.multitenant.multitentant.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.time.LocalDate;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,40 +16,43 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+//@Data
 @Entity
 @Table(name = "ventas")
 public class Venta {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idVentas")
     private Long id;
-    
+
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "fecha")
     private LocalDate fecha;
-    
+
     @Column(name = "descripcion")
     private String descripcion;
-    
+
     @Column(name = "estado")
     private String estado;
-    
+
     @ManyToOne
     @JoinColumn(name = "Clientes_idClientes")
     private Cliente cliente;
-    
+
     @ManyToOne
     @JoinColumn(name = "Sucursales_idSucursales")
     private Sucursal sucursal;
-    
-    @OneToMany(mappedBy = "venta", 
-            cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "venta",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    //@JsonIgnoreProperties("venta")
     private Set<ProductoVenta> productosVentas;
-    
-    
+
     public Long getId() {
         return id;
     }
@@ -95,6 +101,7 @@ public class Venta {
         this.sucursal = sucursal;
     }
 
+    @JsonManagedReference
     public Set<ProductoVenta> getProductosVentas() {
         return productosVentas;
     }
@@ -102,6 +109,7 @@ public class Venta {
     public void setProductosVentas(Set<ProductoVenta> productosVentas) {
         this.productosVentas = productosVentas;
     }
+
     
     
 }
